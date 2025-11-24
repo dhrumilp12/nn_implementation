@@ -1,3 +1,7 @@
+""" How to run:
+            python base_experiment.py
+"""
+
 from collections import Counter
 
 import numpy as np
@@ -12,7 +16,7 @@ from torch.utils.data import DataLoader
 from custom_modules import Linear, CrossEntropyLoss, Sigmoid
 from torch.nn import Module
 
-
+# Define the neural network model
 class FashionNet(Module):
     """
     Single-hidden-layer NN:
@@ -35,7 +39,7 @@ class FashionNet(Module):
         logits = self.fc2(z)
         return logits
 
-
+# Evaluation function
 def evaluate(model, criterion, data_loader, device):
     """
     Compute average loss and accuracy over a dataset.
@@ -64,7 +68,7 @@ def evaluate(model, criterion, data_loader, device):
     accuracy = total_correct / total_samples
     return avg_loss, accuracy
 
-
+# Training function for one epoch
 def train_one_epoch(model, criterion, optimizer, train_loader, device):
     """
     Perform one training epoch with SGD (no shuffling).
@@ -80,7 +84,7 @@ def train_one_epoch(model, criterion, optimizer, train_loader, device):
         loss.backward()
         optimizer.step()
 
-
+# Main experiment runner
 def run_experiment(
     trainset,
     testset,
@@ -127,7 +131,7 @@ def run_experiment(
 
     return model, history
 
-
+# Utility functions for Q4 and Q5
 def get_all_preds_labels(model, data_loader, device):
     """
     Utility to collect all predictions and labels (for confusion matrix, etc.)
@@ -149,7 +153,7 @@ def get_all_preds_labels(model, data_loader, device):
     all_labels = torch.cat(all_labels)
     return all_preds, all_labels
 
-
+# Confusion matrix plotting
 def plot_confusion_matrix(cm, class_names, title):
     plt.figure(figsize=(8, 6))
     sns.heatmap(
@@ -165,7 +169,7 @@ def plot_confusion_matrix(cm, class_names, title):
     plt.tight_layout()
     plt.show()
 
-
+# First misclassified per class
 def show_first_misclassified_per_class(model, data_loader, class_names, device):
     """
     For each class, show the first misclassified test image.
@@ -201,7 +205,7 @@ def show_first_misclassified_per_class(model, data_loader, class_names, device):
     plt.savefig("q5_first_misclassified_per_class.png")
     plt.show()
 
-
+# Main script to run experiments
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")

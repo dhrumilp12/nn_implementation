@@ -1,6 +1,6 @@
 import torch
 from torch.autograd import Function, gradcheck
-
+# Identity function for testing
 class IdentityFunction(Function):
     @staticmethod
     def forward(x):
@@ -10,7 +10,7 @@ class IdentityFunction(Function):
     def backward(grad_output):
         return grad_output
 
-
+# Sigmoid, Linear, CrossEntropy implementations
 class SigmoidFunction(Function):
     @staticmethod
     def forward(ctx, input):
@@ -33,7 +33,7 @@ class SigmoidFunction(Function):
         grad_input = grad_output * sigmoid * (1.0 - sigmoid)
         return grad_input
 
-
+# Linear function implementation
 class LinearFunction(Function):
     @staticmethod
     def forward(ctx, inp, weight, bias):
@@ -69,7 +69,7 @@ class LinearFunction(Function):
 
         return grad_inp, grad_weight, grad_bias
 
-
+# Cross-entropy loss implementation
 class CrossEntropyFunction(Function):
     @staticmethod
     def forward(ctx, logits, target):
@@ -120,7 +120,7 @@ class CrossEntropyFunction(Function):
         return grad_logits, None
 
 
-
+# Test the custom functions with gradcheck
 if __name__ == "__main__":
 
     num = 4

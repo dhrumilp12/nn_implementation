@@ -5,7 +5,7 @@ from collections import OrderedDict
 from torch.autograd import gradcheck
 from custom_functions import IdentityFunction, LinearFunction, CrossEntropyFunction, SigmoidFunction
 
-
+# Identity module for testing
 class Identity(Module):
     def __init__(self):
         super().__init__()
@@ -13,7 +13,7 @@ class Identity(Module):
     def forward(self, inp):
         return IdentityFunction.apply(inp)
 
-
+# Linear module implementation
 class Linear(Module):
     def __init__(self, input_units, output_units):
         super().__init__()
@@ -28,7 +28,7 @@ class Linear(Module):
     def forward(self, inp):
         return LinearFunction.apply(inp, self.weight, self.bias)
 
-
+# Cross-entropy loss module
 class CrossEntropyLoss(Module):
     def __init__(self):
         super().__init__()
@@ -37,7 +37,7 @@ class CrossEntropyLoss(Module):
         # activations = logits
         return CrossEntropyFunction.apply(activations, target)
 
-
+# Sigmoid module implementation
 class Sigmoid(Module):
     def __init__(self):
         super().__init__()
@@ -46,7 +46,7 @@ class Sigmoid(Module):
         return SigmoidFunction.apply(input)
 
 
-
+# Test the custom Linear module with gradcheck
 if __name__ == "__main__":
     num = 4
     inp = 3
